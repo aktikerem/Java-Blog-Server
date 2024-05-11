@@ -1,0 +1,50 @@
+* {
+    box-sizing: border-box;
+    font-family: "IBM Plex Mono", monospace;
+}
+
+html{
+    height: 100%;
+    width: 100%;
+}
+
+  body {
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+     }
+
+  .HEADER {
+    overflow: hidden;
+    background-color: #4d4c4c;
+    color: white;
+    height: 10%;
+    align-items: center;
+    display: flex;
+  }
+  .HEADER h1{
+    margin: 10px;
+  }
+
+  .content {
+    background-color: white;
+    height: 90%;
+    overflow: scroll;
+    overflow-x: hidden;
+  }
+  #scroler{
+
+    height: 100%;
+    width: 100%;
+    overflow-y: hidden;
+    overflow-y: scroll;
+  }
+
+  .message {
+    margin: 15px;
+    padding: 10px;
+    background-color: #dadada;
+  }
+
+

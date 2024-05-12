@@ -14,5 +14,7 @@ in server.java on the top of the file i leaved some config variables so you can 
 
 Here is a running version of the repo
 http://209.38.188.146:8000/
-also a screen shot 
-![Screenshot from 2024-05-12 03-42-58](https://github.com/aktikerem/Java-Blog-Server/assets/64261277/0772670a-8232-4aa1-a64a-acc74d3f8598)
+
+also here is a screen shot
+![Screenshot from 2024-05-12 03-45-29](https://github.com/aktikerem/Java-Blog-Server/assets/64261277/f8998a4f-5492-40e4-a5a4-3bf870b8b445)
+ 

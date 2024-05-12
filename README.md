@@ -9,3 +9,5 @@ i originaly writed this repo to run on lowend cloud servers like the standart 51
 ###### yes it doesnt rely on any 3rd party libs so u dont need to strugle with gradle or sth
 
 in server.java on the top of the file i leaved some config variables so you can use it to quickly adjust the server
+
+###### if you cant accses the site after compiling and running the server.java file you may need to change the file paths since they are not relative but abslute

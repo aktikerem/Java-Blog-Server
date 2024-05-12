@@ -48,9 +48,9 @@ exchange.close();
 
 public void sendPage(HttpExchange exchange) throws IOException {
 if(exchange.getRequestURI().toString().equals("/")){
-String headerContent = new String(Files.readAllBytes(Paths.get("/contents/Nheader.html")));
-String middleContent = new String(Files.readAllBytes(Paths.get("/contents/middle.html")));
-String footerContent = new String(Files.readAllBytes(Paths.get("/contents/Nfooter.html")));
+String headerContent = new String(Files.readAllBytes(Paths.get("/Java-Blog-Server/contents/Nheader.html")));
+String middleContent = new String(Files.readAllBytes(Paths.get("/Java-Blog-Server/contents/middle.html")));
+String footerContent = new String(Files.readAllBytes(Paths.get("/Java-Blog-Server/contents/Nfooter.html")));
 
 String fullHtml = headerContent + middleContent + footerContent;
 byte[] bytes = fullHtml.getBytes();
@@ -69,7 +69,7 @@ os.close();
 else if(exchange.getRequestURI().toString().equals("/contents/Nindex.css")){
 System.out.println(exchange.getRequestURI().toString());
 System.out.println(exchange.getRequestMethod());
-String css = new String(Files.readAllBytes(Paths.get("/contents/Nindex.css")));
+String css = new String(Files.readAllBytes(Paths.get("/Java-Blog-Server/contents/Nindex.css")));
 byte[] cssBytes = css.getBytes();
 
 exchange.sendResponseHeaders(200, cssBytes.length);
@@ -78,10 +78,10 @@ cssOS.write(cssBytes);
 cssOS.close();
 
 }
-else if(exchange.getRequestURI().toString().equals("/contents/index.css")){
+else if(exchange.getRequestURI().toString().equals("/Java-Blog-Server/contents/index.css")){
 System.out.println(exchange.getRequestURI().toString());
 System.out.println(exchange.getRequestMethod());
-String css = new String(Files.readAllBytes(Paths.get("/contents/index.css")));
+String css = new String(Files.readAllBytes(Paths.get("/Java-Blog-Server/contents/index.css")));
 byte[] cssBytes = css.getBytes();
 
 exchange.sendResponseHeaders(200, cssBytes.length);
@@ -93,7 +93,7 @@ cssOS.close();
 
 else{
 System.err.println("404");
-String css = new String(Files.readAllBytes(Paths.get("/contents/404.html")));
+String css = new String(Files.readAllBytes(Paths.get("/Java-Blog-Server/contents/404.html")));
 byte[] cssBytes = css.getBytes();
 
 exchange.sendResponseHeaders(404, cssBytes.length);
@@ -108,9 +108,9 @@ cssOS.close();
 
 public void sendPrivatePage(HttpExchange exchange) throws IOException{
 
-String headerContent = new String(Files.readAllBytes(Paths.get("/contents/header.html")));
-String middleContent = new String(Files.readAllBytes(Paths.get("/contents/middle.html")));
-String footerContent = new String(Files.readAllBytes(Paths.get("/contents/footer.html")));
+String headerContent = new String(Files.readAllBytes(Paths.get("/Java-Blog-Server/contents/header.html")));
+String middleContent = new String(Files.readAllBytes(Paths.get("/Java-Blog-Server/contents/middle.html")));
+String footerContent = new String(Files.readAllBytes(Paths.get("/Java-Blog-Server/contents/footer.html")));
 
 String fullHtml = headerContent + middleContent + footerContent;
 
@@ -193,7 +193,7 @@ String usrInput = new String (bytos, "UTF-8");
 usrInput = URLDecoder.decode(usrInput, "UTF-8");
 usrInput = "<div class='message'>"  + formattedDate + " " + usrInput+"</div>"; 
 
-BufferedWriter writer = new BufferedWriter(new FileWriter("/contents/middle.html", true));
+BufferedWriter writer = new BufferedWriter(new FileWriter("/Java-Blog-Server/contents/middle.html", true));
 writer.append(usrInput);
 writer.close();
 

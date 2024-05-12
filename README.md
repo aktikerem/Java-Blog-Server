@@ -13,7 +13,7 @@ in server.java on the top of the file i leaved some config variables so you can 
 ###### if you cant accses the site after compiling and running the server.java file you may need to change the file paths since they are not relative but abslute
 
 Here is a running version of the repo
-http://209.38.188.146:8000/
+http://206.189.249.174:8000/
 
 also here is a screen shot
 ![Screenshot from 2024-05-12 03-45-29](https://github.com/aktikerem/Java-Blog-Server/assets/64261277/f8998a4f-5492-40e4-a5a4-3bf870b8b445)

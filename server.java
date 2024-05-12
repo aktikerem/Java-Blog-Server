@@ -18,7 +18,7 @@ import java.util.Date;
 import java.util.TimeZone;
 public class server {
 //configs
-public static final String PWD = new String("Anadolu03"); //you still need to change it inside the "footer.html" file too!
+public static final String PWD = new String("yourpwdhere"); //you still need to change it inside the "footer.html" file too!
 public static final int port = 8000;
 public static final String timezone = new String("GMT+3");
 //configs

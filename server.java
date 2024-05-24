@@ -167,7 +167,7 @@ System.out.println(len);
 
 
 Date currentDate = new Date();
-SimpleDateFormat dateFormat = new SimpleDateFormat("[EEE HH:mm:ss");
+SimpleDateFormat dateFormat = new SimpleDateFormat("[MMM dd HH:mm");
 dateFormat.setTimeZone(TimeZone.getTimeZone(timezone));
 String formattedDate = dateFormat.format(currentDate);
 formattedDate = formattedDate +" " + timezone+"]";

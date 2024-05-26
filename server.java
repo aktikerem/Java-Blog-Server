@@ -3,7 +3,6 @@ import com.sun.net.httpserver.HttpServer;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
-
 import java.io.*;
 import java.net.InetSocketAddress;
 import java.nio.file.Files;
@@ -16,23 +15,122 @@ import java.io.BufferedWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
+import java.net.InetSocketAddress;
+import java.io.FileInputStream;
+import com.sun.net.httpserver.*;
+import java.util.Scanner;
+import java.net.InetSocketAddress;
+import java.nio.charset.StandardCharsets;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.lang.Runtime;
+import java.security.KeyManagementException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.UnrecoverableKeyException;
+import java.security.cert.CertificateException;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLEngine;
+import javax.net.ssl.SSLParameters;
+import java.security.KeyStore;
+import javax.net.ssl.KeyManagerFactory;
+import java.util.Properties;
+import javax.net.ssl.TrustManagerFactory;
 public class server {
 //configs
 public static final String PWD = new String("yourpwdhere"); //you still need to change it inside the "footer.html" file too!
-public static final int port = 8000;
+public static final int portNum = 443;
 public static final String timezone = new String("GMT+3");
+public static final Boolean useHttps = true;
 //configs
+
+
+private void runServer() throws IOException {
+
+      System.out.print("\033[H\033[2J");
+      System.out.println("Listening on port " + portNum+"...");
+
+
+
+
+
+//unreadble bulshit go
+   if(useHttps){
+   try{
+      HttpsServer server = HttpsServer.create(new InetSocketAddress(portNum),0);
+      SSLContext sslContext = SSLContext.getInstance("TLS");
+      char[] password = "password".toCharArray();
+      KeyStore ks = KeyStore.getInstance("PKCS12");
+      FileInputStream fis = new FileInputStream("ssl/keystore.jks");
+      ks.load(fis, password);
+
+      // setup the key manager factory
+      
+      KeyManagerFactory kmf = KeyManagerFactory.getInstance("SunX509");
+      kmf.init(ks, password);
+
+      // setup the trust manager factory
+      TrustManagerFactory tmf = TrustManagerFactory.getInstance("SunX509");
+      tmf.init(ks);
+
+      // setup the HTTPS context and parameters
+      sslContext.init(kmf.getKeyManagers(), tmf.getTrustManagers(), null);
+      server.setHttpsConfigurator(new HttpsConfigurator(sslContext) {
+         
+      public void configure(HttpsParameters params) {
+      try {
+       // initialise the SSL context
+       SSLContext c = getSSLContext();
+       SSLEngine engine = c.createSSLEngine();
+       params.setNeedClientAuth(false);
+       params.setCipherSuites(engine.getEnabledCipherSuites());
+       params.setProtocols(engine.getEnabledProtocols());
+
+       // Set the SSL parameters
+       SSLParameters sslParameters = c.getSupportedSSLParameters();
+       params.setSSLParameters(sslParameters);
+
+      } catch (Exception ex) {
+       System.out.println("Failed to create HTTPS port");
+       System.out.println(ex.getMessage());
+      }
+     }
+  });
+
+
+      server.createContext("/", new NHttpHandler());
+      server.start(); // starts the server
+      
+   }
+   
+   catch(Exception ex){
+           System.out.println("ops..");
+           System.out.println(ex.getMessage());
+   
+   }
+   }
+   else{
+
+   HttpServer server = HttpServer.create(new InetSocketAddress(portNum),0);
+   server.createContext("/", new NHttpHandler());
+   server.start(); // starts the server
+
+
+   }
+   }
 
 
 public static void main(String[] args) throws IOException {
 
-InetSocketAddress portOBJ = new InetSocketAddress(port);
-HttpServer httpserver = HttpServer.create(portOBJ, 0);
-httpserver.createContext("/", new NHttpHandler());
-httpserver.start();
-
+try {
+        server Server = new server(); // creates a instance of itself
+        System.out.println("Starting server..");
+        Server.runServer(); //uses that instance to call run server so if it fails it can be logged
+} catch (IOException e) {
+        System.out.println("good luck with that ._.");
+        e.printStackTrace();
+      }
 }
-
 
 
 
@@ -143,7 +241,7 @@ try{
  if(exchange.getRequestURI().toString().substring(0,7).equals("/login=")){
   System.out.println(exchange.getRequestURI().toString().substring(7));
   if(exchange.getRequestURI().toString().substring(7).equals(PWD)){
-  	sendPrivatePage(exchange);
+        sendPrivatePage(exchange);
   }
   else{
   sendPage(exchange);
@@ -167,7 +265,7 @@ System.out.println(len);
 
 
 Date currentDate = new Date();
-SimpleDateFormat dateFormat = new SimpleDateFormat("[MMM dd HH:mm");
+SimpleDateFormat dateFormat = new SimpleDateFormat("[EEE dd HH:mm");
 dateFormat.setTimeZone(TimeZone.getTimeZone(timezone));
 String formattedDate = dateFormat.format(currentDate);
 formattedDate = formattedDate +" " + timezone+"]";
